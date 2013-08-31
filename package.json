@@ -1,0 +1,38 @@
+{
+  "name": "express-reverse",
+  "description": "Express helper for generating reverse route URLs.",
+  "version": "0.0.1",
+  "keywords": [
+    "express",
+    "route",
+    "router",
+    "routing",
+    "reverse",
+    "helper"
+  ],
+  "author": {
+    "name": "Joe Lutz",
+    "email": "lutz.joe@gmail.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:dizlexik/express-reverse.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "test-debug": "mocha -d -w"
+  },
+  "engines": {
+    "node": "*"
+  },
+  "dependencies": {
+    "methods": "0.0.1"
+  },
+  "devDependencies": {
+    "chai": "1.7.x",
+    "express": "3.3.x",
+    "mocha": "1.12.x"
+  }
+}
