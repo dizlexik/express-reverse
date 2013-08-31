@@ -31,7 +31,7 @@ EJS:
 * `app` - Express app
 * `options (optional)` - Defaults: `{ helperName: 'url' }`
 
-Augments the default Express [routing methods](http://expressjs.com/api.html#app.VERB) `app.VERB(path, [callback...], callback)` to accept a `routeName` parameter `app.VERB(path, routeName, [callback...], callback)`.
+Augments the default Express [routing methods](http://expressjs.com/api.html#app.VERB) `app.VERB(path, [callback...], callback)` to accept an optional `routeName` parameter `app.VERB(path, [routeName], [callback...], callback)`.
 
 ### url(routeName, [replacements])
 
