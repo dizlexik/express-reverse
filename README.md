@@ -11,7 +11,14 @@ npm install express-reverse
 ```js
 var app = require('express')();
 require('express-reverse')(app);
-app.get('/hello/:x', 'test', function(req, res, next) { res.end('hello ' + req.params.x); });
+
+app.get('test', '/hello/:x', function(req, res, next) {
+  res.end('hello ' + req.params.x);
+});
+
+app.get('/test-redirect', function(req, res, next) {
+  res.redirectToRoute('test', { x: 'world' });
+});
 ```
 
 Jade:
@@ -28,17 +35,27 @@ EJS:
 
 ### _module_(app, [options])
 
-* `app` - Express app
-* `options (optional)` - Defaults: `{ helperName: 'url' }`
+* `app` Express app
+* `options (optional)` Defaults: `{ helperName: 'url' }`
 
-Augments the default Express [routing methods](http://expressjs.com/api.html#app.VERB) `app.VERB(path, [callback...], callback)` to accept an optional `routeName` parameter `app.VERB(path, [routeName], [callback...], callback)`.
+Augments the default Express [routing methods](http://expressjs.com/api.html#app.VERB) `app.VERB(path, [callback...], callback)` to accept an optional `routeName` parameter `app.VERB([routeName], path, [callback...], callback)`.
 
-### url(routeName, [replacements])
+## Helpers
 
-* `routeName` - The route name specified when defining a route with `app.VERB(...)`.
-* `replacements (optional)` - An object defining the URL replacement values. For example `{ x: 123 }` will replace `:x` with `123` in the route `'/test/:x'`. Also note that replacement values are required for all URL parameters except for optional ones (i.e. `'/test/:x?'`).
+### url(routeName, [parameters])
+
+* `routeName` The route name specified when defining a route with `app.VERB(...)`.
+* `parameters (optional)` An object defining the URL replacement values. For example `{ x: 123 }` will replace `:x` with `123` in the route `'/test/:x'`. Also note that replacement values are required for all URL parameters except for optional ones (i.e. `'/test/:x?'`).
 
 Adds a new application helper function in app.locals (named 'url' by default) with the signature `url(routeName, replacements)`
+
+## Middleware
+
+### res.redirectToRoute([status], routeName, [parameters])
+
+* `status (optional)` Optional status code number (e.g. 301).
+* `routeName` See helper description.
+* `parameters (optional)` See helper description.
 
 ## Tests
 
