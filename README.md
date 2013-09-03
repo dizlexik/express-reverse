@@ -1,5 +1,7 @@
 # Express Reverse Routing Helper
 
+[![NPM version](https://badge.fury.io/js/express-reverse.png)](http://badge.fury.io/js/express-reverse)
+
 ## Install
 
 ```sh
