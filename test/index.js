@@ -30,6 +30,7 @@ describe('express-reverse', function() {
     assert.throws(function() { url('test 2'); }, 'Missing value for "x".');
     assert.equal(url('test 3', { x: '1' }), '/test/1');
     assert.equal(url('test 3'), '/test');
+    assert.throws(function() { url('test 4'); }, 'Route not found: test 4');
   });
 
   it('should add res.redirectToRoute middleware', function() {

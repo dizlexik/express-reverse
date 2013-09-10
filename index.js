@@ -31,6 +31,8 @@ function augmentVerbs(app) {
 
 function addHelper(app, options) {
   app.locals[options.helperName] = function(name, params) {
+    var route = app._namedRoutes[name];
+    if (!route) throw new Error('Route not found: ' + name);
     return reverse(app._namedRoutes[name].path, params);
   };
 }
