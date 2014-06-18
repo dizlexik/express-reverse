@@ -38,7 +38,9 @@ describe('express-reverse', function() {
     app.use = function(fn) { middleware = fn; };
     reverse(app);
     var redirectArgs;
-    var res = { redirect: function() { redirectArgs = arguments } };
+    var res = {
+      redirect: function() { redirectArgs = Array.prototype.slice.call(arguments, 0); }
+    };
     middleware(null, res, function() {});
 
     assert.isDefined(res.redirectToRoute);
