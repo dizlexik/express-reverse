@@ -44,7 +44,7 @@ function addMiddleware(app, options) {
         params = routeName;
         routeName = status;
       }
-      var mountpath = (app.mountpath && app.mountpath != '/') ? app.mountpath : ''; 
+      var mountpath = (app.mountpath && app.mountpath != '/') ? app.mountpath : '';
       var url = mountpath + reverse(app._namedRoutes[routeName].path, params);
       if (isNaN(status)) return res.redirect(url);
       else return res.redirect(status, url);
