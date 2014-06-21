@@ -32,7 +32,8 @@ function addHelper(app, options) {
   app.locals[options.helperName] = function(name, params) {
     var route = app._namedRoutes[name];
     if (!route) throw new Error('Route not found: ' + name);
-    return reverse(app._namedRoutes[name].path, params);
+    var mountpath = (app.mountpath && app.mountpath != '/') ? app.mountpath : '';
+    return mountpath + reverse(app._namedRoutes[name].path, params);
   };
 }
 
@@ -43,7 +44,8 @@ function addMiddleware(app, options) {
         params = routeName;
         routeName = status;
       }
-      var url = reverse(app._namedRoutes[routeName].path, params);
+      var mountpath = (app.mountpath && app.mountpath != '/') ? app.mountpath : ''; 
+      var url = mountpath + reverse(app._namedRoutes[routeName].path, params);
       if (isNaN(status)) return res.redirect(url);
       else return res.redirect(status, url);
     };
