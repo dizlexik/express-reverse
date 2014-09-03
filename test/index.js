@@ -51,6 +51,36 @@ describe('express-reverse', function() {
     assert.throws(function() { url('test 4'); }, 'Route not found: test 4');
   });
 
+  it('should handle reverse route URLs with regular expressions', function() {
+    app.get('regex 1', '/regex/:x(foo|bar)', noop);
+    app.get('regex 2', '/regex/:x1(foo|bar)/:x2(foo1|bar1)', noop);
+    app.get('regex 3', '/regex/:x(foo|bar)?', noop);
+    app.get('regex 4', '/regex/:x([a-z]{1,3})', noop);
+    app.get('regex 5', '/regex/:x([a-z]{1,3})?', noop);
+    app.get('regex 6', '/regex/:x([a-z]+)/:y([0-9]+)', noop);
+    app.get('regex 7', '/regex/:x(fo?o)', noop);
+
+
+    var url = app.locals.url;
+    assert.equal(url('regex 1', { x: 'foo' }), '/regex/foo');
+    assert.equal(url('regex 2', { x1: 'foo', x2: 'bar1' }), '/regex/foo/bar1');
+    assert.equal(url('regex 3', { x: 'foo' }), '/regex/foo');
+    assert.equal(url('regex 3'), '/regex');
+    assert.equal(url('regex 4', { x: 'baz' }), '/regex/baz');
+    assert.throws(function() { url('regex 4', { x: 'foobar' }); },
+                        'Invalid value for "x", should match "([a-z]{1,3})".');
+    assert.equal(url('regex 5'), '/regex');
+    assert.equal(url('regex 5', { x: 'baz' }), '/regex/baz');
+    assert.throws(function() { url('regex 5', { x: 'foobar' }); },
+                        'Invalid value for "x", should match "([a-z]{1,3})".');
+    assert.equal(url('regex 6', { x: 'foobar', y: 1 }), '/regex/foobar/1');
+    assert.throws(function() { url('regex 6', { x: 'foo', y: 'bar' }); },
+                        'Invalid value for "y", should match "([0-9]+)".');
+    assert.equal(url('regex 7', { x: 'fo' }), '/regex/fo');
+    assert.equal(url('regex 7', { x: 'foo' }), '/regex/foo');
+    assert.throws(function() { url('regex 7'); }, 'Missing value for "x".');
+  });
+
   it('should add res.redirectToRoute middleware', function() {
     var middelware;
     app.use = function(fn) { middleware = fn; };
