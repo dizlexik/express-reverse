@@ -1,6 +1,6 @@
 # Express Reverse Routing Helper
 
-[![NPM version](https://badge.fury.io/js/express-reverse.png)](http://badge.fury.io/js/express-reverse)
+[![NPM version](https://img.shields.io/npm/v/express-reverse.svg)](https://www.npmjs.org/package/express-reverse)
 
 ## Install
 
