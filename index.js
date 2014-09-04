@@ -21,7 +21,9 @@ function augmentVerbs(app) {
       var ret = _fn.apply(this, args);
 
       if (!app._namedRoutes) app._namedRoutes = {};
-      app._namedRoutes[name] = this.route(args[0]);
+      app._namedRoutes[name] = (typeof this.route !== 'string')
+          ? this.route(args[0]) // express 4.x
+          : this.routes[method].slice(-1)[0]; // express 3.x
 
       return ret;
     };
