@@ -20,6 +20,9 @@ describe('express-reverse', function() {
     app.get('test', '/test', noop);
     assert.isDefined(app._namedRoutes);
     assert.isDefined(app.locals.url);
+    assert.throws(function() {
+      app.get('test', '/test2', noop);
+    }, 'Route already defined: test');
   });
 
   it('should generate reverse route URLs', function() {

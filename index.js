@@ -16,6 +16,9 @@ function augmentVerbs(app) {
         (typeof(path) != 'string' && !(path instanceof String)))
         return _fn.apply(this, arguments);
 
+      if (app._namedRoutes && app._namedRoutes[name])
+        throw new Error('Route already defined: ' + name);
+
       var args = Array.prototype.slice.call(arguments, 0);
       args.shift();
       var ret = _fn.apply(this, args);

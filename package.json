@@ -1,7 +1,7 @@
 {
   "name": "express-reverse",
   "description": "Express helper for generating reverse route URLs.",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "keywords": [
     "express",
     "route",
